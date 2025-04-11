@@ -49,7 +49,7 @@ get_violations(resource_type, attribute_path, compliant_values, friendly_resourc
     nc_resources := get_nc_resources(resource_type, attribute_path, compliant_values)
     msg := sprintf(
     "%s '%s' uses unapproved %s: '%s'",
-    [friendly_resource_name, nc_resources[_].values.name, replace(attribute_path, "_", " "), object.get(nc_resources[_].values, attribute_path, null)]
+    [friendly_resource_name, nc_resources[_].name, replace(attribute_path, "_", " "), object.get(nc_resources[_].values, attribute_path, null)]
     )
     ]
 }
