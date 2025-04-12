@@ -81,3 +81,4 @@ get_summary(resource_type, attribute_path, compliant_values, friendly_resource_n
     ) 
 }
 }
+
