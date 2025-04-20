@@ -1,10 +1,15 @@
-# Describe your resource type here
+# Define a non-compliant google_backup_dr_backup_vault resource
 # Keep "nc" as the name to indicate that this resource and its attributes are non-compliant
 
 resource "google_backup_dr_backup_vault" "nc" {
-  provider = google-beta
+  location        = "australia-southeast1"
   backup_vault_id = "backup-vault-nc"
-  location = "australia-southeast1"
+
+  access_restriction = "UNRESTRICTED"
+
   backup_minimum_enforced_retention_duration = "3600s"
-  force_delete = false
+
+  labels = {
+    "goog-terraform-provisioned" = "true"
+  }
 }
