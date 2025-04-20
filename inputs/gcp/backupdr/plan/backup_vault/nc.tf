@@ -1,15 +1,19 @@
 # Describe the google_backup_dr_backup_plan resource type here
-# Keep "nc" as the name to indicate that this resource and its attributes are non-compliant
+# Keep "nc" as the name to indicate that this resource and its attributes are non‑compliant
 
 resource "google_backup_dr_backup_plan" "nc" {
-  backup_plan_id = "INVALID_PLAN_ID"
-  resource_type  = ""
+  # Required identifiers
+  backup_plan_id = "vault-test-plan"
+  resource_type  = "GCE_VM"
   location       = "australia-southeast1"
   project        = "my-project-id"
-  backup_vault   = "projects/my-project-id/locations/australia-southeast1/backupVaults/approved-vault"
 
+  # Non‑compliant vault
+  backup_vault = "projects/my-project-id/locations/australia-southeast1/backupVaults/unapproved-vault"
+
+  # Still must include a backup_rules block
   backup_rules {
-    rule_id               = "rule-1"
+    rule_id               = "rule-vault"
     backup_retention_days = 30
 
     standard_schedule {

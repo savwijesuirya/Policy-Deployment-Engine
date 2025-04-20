@@ -2,14 +2,18 @@
 # Keep "c" as the name to indicate that this resource and its attributes are compliant
 
 resource "google_backup_dr_backup_plan" "c" {
-  backup_plan_id = "compliant-plan-id"
+  # Required identifiers
+  backup_plan_id = "vault-test-plan"
   resource_type  = "GCE_VM"
   location       = "australia-southeast1"
   project        = "my-project-id"
-  backup_vault   = "projects/my-project-id/locations/australia-southeast1/backupVaults/approved-vault"
 
+  # Compliant vault
+  backup_vault = "projects/my-project-id/locations/australia-southeast1/backupVaults/approved-vault"
+
+  # You must include at least one backup_rules block—even if you’re only testing vault
   backup_rules {
-    rule_id               = "rule-1"
+    rule_id               = "rule-vault"
     backup_retention_days = 30
 
     standard_schedule {

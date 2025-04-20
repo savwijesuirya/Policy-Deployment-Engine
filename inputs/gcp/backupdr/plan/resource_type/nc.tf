@@ -1,16 +1,16 @@
-# Describe the google_backup_dr_backup_plan resource type here
+# Improper resource declaration or invalid type
 # Keep "nc" as the name to indicate that this resource and its attributes are non-compliant
 
 resource "google_backup_dr_backup_plan" "nc" {
-  backup_plan_id = "INVALID_PLAN_ID"
-  resource_type  = ""
+  backup_plan_id = "invalid-resource"
+  resource_type  = "INVALID_TYPE" # Improper or unsupported type
   location       = "australia-southeast1"
   project        = "my-project-id"
-  backup_vault   = "projects/my-project-id/locations/australia-southeast1/backupVaults/approved-vault"
+  backup_vault   = "" # empty or invalid vault reference
 
   backup_rules {
     rule_id               = "rule-1"
-    backup_retention_days = 30
+    backup_retention_days = 5 # Too low
 
     standard_schedule {
       recurrence_type = "DAILY"

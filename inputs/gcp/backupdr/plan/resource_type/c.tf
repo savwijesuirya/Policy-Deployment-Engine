@@ -1,8 +1,8 @@
-# Describe the google_backup_dr_backup_plan resource type here
+# Resource using proper type and structure
 # Keep "c" as the name to indicate that this resource and its attributes are compliant
 
 resource "google_backup_dr_backup_plan" "c" {
-  backup_plan_id = "compliant-plan-id"
+  backup_plan_id = "valid-resource"
   resource_type  = "GCE_VM"
   location       = "australia-southeast1"
   project        = "my-project-id"
