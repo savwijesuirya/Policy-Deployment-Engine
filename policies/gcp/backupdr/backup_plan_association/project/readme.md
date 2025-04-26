@@ -62,6 +62,3 @@ opa eval  --data ./policies/gcp   --input ./inputs/gcp/backupdr/backup_plan_asso
    ```
 3. **Inspect** the output—any association whose `project` is not `"policy-deployment-backups"` will be reported as non-compliant.
 
----
-
-By following this guide, you ensure all Backup Plan Associations are created only within the authorized **policy-deployment-backups** project.
