@@ -1,39 +1,29 @@
 package terraform.gcp.security.backupdr.backup_plan_association.backup_plan
-
 import data.terraform.gcp.security.backupdr.backup_plan_association.vars
 
-# Collect all BackupPlanAssociation resources
-all := [
-  r |
+attribute_path := "backup_plan"
+
+approved := {
+    "valid-backup-plan"
+}
+
+resources := [
+    r |
     r := input.planned_values.root_module.resources[_]
     r.type == vars.resource_type
 ]
 
-# Flag those with an empty backup_plan
-violations := [
-  sprintf("%s '%s' has invalid backup_plan: '%s'", [
-    vars.friendly_resource_name,
-    r.name,
-    r.values.backup_plan,
-  ]) |
-  r := all[_]
-  r.values.backup_plan == ""
-]
+total_count := count(resources)
 
-# Build the summary payload under "message"
+non_compliant_count := count([
+    r |
+    r := resources[_]
+    not approved[r.values[attribute_path]]
+])
+
 summary := {
-  "message": array.concat(
-    [
-      sprintf("Total %s detected: %d", [
-        vars.friendly_resource_name,
-        count(all),
-      ]),
-      sprintf("Non-compliant %s: %d/%d", [
-        vars.friendly_resource_name,
-        count(violations),
-        count(all),
-      ]),
-    ],
-    violations
-  )
+    "message": [
+        sprintf("Total %s detected: %d", [vars.friendly_resource_name, total_count]),
+        sprintf("Non-compliant %s: %d/%d", [vars.friendly_resource_name, non_compliant_count, total_count])
+    ]
 }

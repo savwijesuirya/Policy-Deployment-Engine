@@ -1,38 +1,25 @@
 package terraform.gcp.security.backupdr.backup_plan_association.location
-
-import data.terraform.gcp.helpers
 import data.terraform.gcp.security.backupdr.backup_plan_association.vars
-
-# Field to validate
 attribute_path := "location"
-
-# Only allow this approved region
-valid_location := "australia-southeast1"
-
-# Grab all of our BackupPlanAssociation resources
-all_assocs := helpers.get_all_resources(vars.resource_type)
-
-# Find the ones that violate our approved location rule
-violations := [
-    sprintf(
-      "%s '%s' uses unapproved %s: '%s'",
-      [ vars.friendly_resource_name
-      , r.name
-      , attribute_path
-      , object.get(r.values, attribute_path, "<missing>")
-      ]
-    ) |
-    r := all_assocs[_]
-    object.get(r.values, attribute_path, "") != valid_location
+approved := {
+    "australia-southeast1",
+}
+resources := [
+    r |
+    r := input.planned_values.root_module.resources[_]
+    r.type == vars.resource_type
 ]
+total_count := count(resources)
 
-# Build the top‑line counts
-counts := [
-    sprintf("Total %s detected: %d", [vars.friendly_resource_name, count(all_assocs)]),
-    sprintf("Non-compliant %s: %d/%d", [vars.friendly_resource_name, count(violations), count(all_assocs)])
-]
+non_compliant_count := count([
+    r |
+    r := resources[_]
+    not approved[r.values[attribute_path]]
+])
 
-# Final summary map with a `.message` array
 summary := {
-  "message": array.concat(counts, violations)
+    "message": [
+        sprintf("Total %s detected: %d", [vars.friendly_resource_name, total_count]),
+        sprintf("Non-compliant %s: %d/%d", [vars.friendly_resource_name, non_compliant_count, total_count])
+    ]
 }

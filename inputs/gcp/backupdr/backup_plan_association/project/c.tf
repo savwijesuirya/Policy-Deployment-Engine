@@ -5,7 +5,7 @@ resource "google_backup_dr_backup_plan_association" "c" {
   location                    = "australia-southeast1"
   resource_type               = "compute.googleapis.com/Instance"
   backup_plan_association_id = "valid-bpa-project"
-  resource                   = "projects/my-project-id/zones/australia-southeast1-a/instances/my-instance"
+  resource                   = "projects/policy-deployment-backups/zones/australia-southeast1-a/instances/my-instance"
   backup_plan                = "backup-plan-project-ok"
-  project                    = "my-project-id"  # Approved project
+  project                    = "policy-deployment-backups"  # Approved project
 }
