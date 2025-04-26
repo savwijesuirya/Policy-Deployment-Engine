@@ -1,7 +1,7 @@
 package terraform.gcp.security.backupdr.backup_plan_association.resource
 import data.terraform.gcp.security.backupdr.backup_plan_association.vars
 attribute_path := "resource"
-valid_prefix := "projects/my-project-id/zones/australia-southeast1-a/instances/"
+valid_prefix := "projects/policy-deployment-backups/zones/australia-southeast1-a/instances/"
 resources := [
     r |
     r := input.planned_values.root_module.resources[_]
