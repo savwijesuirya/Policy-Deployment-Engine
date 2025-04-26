@@ -58,7 +58,5 @@ resource "google_backup_dr_backup_plan_association" "nc" {
    ```
 2. **Evaluate** the `project` policy:
    ```bash
-opa eval  --data ./policies/gcp   --input ./inputs/gcp/backupdr/backup_plan_association/project/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan_association.project.summary.message" 
-   ```
+     opa eval  --data ./policies/gcp   --input ./inputs/gcp/backupdr/backup_plan_association/project/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan_association.project.summary.message" ```
 3. **Inspect** the output—any association whose `project` is not `"policy-deployment-backups"` will be reported as non-compliant.
-
