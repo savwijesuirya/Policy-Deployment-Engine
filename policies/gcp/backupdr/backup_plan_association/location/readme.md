@@ -39,9 +39,9 @@ resource "google_backup_dr_backup_plan_association" "c" {
 ### Non-Compliant Example (`nc.tf`)
 ```hcl
 resource "google_backup_dr_backup_plan_association" "nc" {
-   location                    = "australia-southeast1"                      # Non-approved location
+   location                    = "us-west1"                      # Non-approved location
   resource_type               = "compute.googleapis.com/Instance"
-  backup_plan_association_id = "invalid id!"                      # Invalid: contains space and special character
+  backup_plan_association_id = "valid-bpa"
   resource                   = "projects/policy-deployment-backups/zones/us-central1-a/instances/invalid-instance"
   backup_plan                = "backup-plan-noncompliant"
   project                    = "policy-deployment-backups"
