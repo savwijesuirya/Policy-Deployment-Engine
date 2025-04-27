@@ -6,10 +6,10 @@ resource "google_backup_dr_backup_plan" "nc" {
   backup_plan_id = "vault-test-plan"
   resource_type  = "GCE_VM"
   location       = "australia-southeast1"
-  project        = "my-project-id"
+  project        = "policy-deployment-backups"
 
   # Non‑compliant vault
-  backup_vault = "projects/my-project-id/locations/australia-southeast1/backupVaults/unapproved-vault"
+  backup_vault = "projects/policy-deployment-backups/locations/australia-southeast1/backupVaults/unapproved-vault"
 
   # Still must include a backup_rules block
   backup_rules {

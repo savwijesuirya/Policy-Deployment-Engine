@@ -5,8 +5,8 @@ resource "google_backup_dr_backup_plan" "nc" {
   backup_plan_id = "invalid-resource"
   resource_type  = "INVALID_TYPE" # Improper or unsupported type
   location       = "australia-southeast1"
-  project        = "my-project-id"
-  backup_vault   = "" # empty or invalid vault reference
+  project        = "policy-deployment-backups"
+  backup_vault   = "projects/policy-deployment-backups/locations/australia-southeast1/backupVaults/approved-vault"
 
   backup_rules {
     rule_id               = "rule-1"

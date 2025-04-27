@@ -3,8 +3,8 @@ resource "google_backup_dr_backup_plan" "nc" {
   backup_plan_id = "plan-with-bad-rules"
   resource_type  = "GCE_VM"
   location       = "australia-southeast1"
-  project        = "my-project-id"
-  backup_vault   = "projects/my-project-id/locations/australia-southeast1/backupVaults/unapproved-vault" # invalid vault
+  project        = "policy-deployment-backups"
+  backup_vault   = "projects/policy-deployment-backups/locations/australia-southeast1/backupVaults/unapproved-vault" # invalid vault
 
   backup_rules {
     rule_id               = "daily-rule"

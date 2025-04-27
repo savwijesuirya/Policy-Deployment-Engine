@@ -5,8 +5,8 @@ resource "google_backup_dr_backup_plan" "nc" {
   backup_plan_id = "location-test-plan"
   resource_type  = "GCE_VM"
   location       = "us-west1"   # disallowed region
-  project        = "my-project-id"
-  backup_vault   = "projects/my-project-id/locations/australia-southeast1/backupVaults/approved-vault"
+  project        = "policy-deployment-backups"
+  backup_vault   = "projects/policy-deployment-backups/locations/australia-southeast1/backupVaults/approved-vault"
 
   backup_rules {
     rule_id               = "rule-location"
