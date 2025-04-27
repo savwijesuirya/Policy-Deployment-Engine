@@ -46,11 +46,7 @@ POLICY-DEPLOYMENT-ENGINE/
 Use the command below to evaluate your Terraform plan against this policy:
 
 ```bash
-opa eval \
-  --data ./policies/gcp \
-  --input ./inputs/gcp/backupdr/plan/standard_schedule/plan.json \
-  --format pretty \
-  "data.terraform.gcp.security.backupdr.backup_plan.standard_schedule.summary.message"
+opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/plan/standard_schedule/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan.standard_schedule.summary.message"
 ```
 
 ```
