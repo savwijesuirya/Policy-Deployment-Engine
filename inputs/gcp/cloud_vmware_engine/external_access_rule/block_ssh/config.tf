@@ -11,4 +11,5 @@ terraform {
 
 provider "google" {
     project = "sit737-25t1-vartak-29a614e"
+
 }
