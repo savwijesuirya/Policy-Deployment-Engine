@@ -105,7 +105,7 @@ conditions := [
     {
         "condition": "Wrong description pattern",
         "attribute_path" : ["description"],
-        "values" : ["project/*", [["root"]], # Value to be compared
+        "values" : ["project/*", [["root"]]], # Value to be compared
         "policy_type" : "pattern blacklist" # Can be any value but root
     }
     ]
