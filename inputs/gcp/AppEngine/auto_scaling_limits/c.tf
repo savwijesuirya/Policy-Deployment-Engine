@@ -1,4 +1,5 @@
 resource "google_app_engine_standard_app_version" "c" {
+  project = "NA"
   service     = "default"
   version_id  = "v1"
   runtime     = "nodejs18"
