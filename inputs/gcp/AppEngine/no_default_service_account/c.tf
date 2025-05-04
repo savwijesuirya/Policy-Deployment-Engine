@@ -3,6 +3,7 @@ resource "google_app_engine_standard_app_version" "c"{
   version_id  = "v1"
   runtime     = "python3.9"
   service_account = "my-service-account"
+  project = "my-project"
   deployment {
   zip {
     source_url = "https://storage.googleapis.com/my-bucket/app.zip"

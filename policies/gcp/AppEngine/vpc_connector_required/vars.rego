@@ -1,4 +1,7 @@
 package terraform.gcp.security.app_engine.vpc_connector_required.vars
 
-friendly_resource_name := "App Engine VPC Connector"
-resource_type := "google_app_engine_standard_app_version"
+variables := {
+  "friendly_resource_name": "App Engine Standard App Version",
+  "resource_type": "google_app_engine_standard_app_version",
+  "resource_value_name": "vpc_access_connector"
+}

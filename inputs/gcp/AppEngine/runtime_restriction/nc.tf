@@ -2,6 +2,7 @@ resource "google_app_engine_standard_app_version" "nc" {
   service  = "default"
   version_id = "v1"
   runtime  = "php5.5" # Non-compliant runtime
+  project = "my-project"
 
   entrypoint {
     shell = "php index.php"

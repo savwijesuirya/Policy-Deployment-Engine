@@ -3,9 +3,22 @@ package terraform.gcp.security.app_engine.vpc_connector_required
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.app_engine.vpc_connector_required.vars
 
-attribute_path := "vpc_access_connector.name"
-compliant_values := [
-  "my-vpc-connector"
+conditions := [
+  [
+    {
+      "situation_description": "App Engine service does not define a VPC Access Connector",
+      "remedies": [
+        "Add a `vpc_access_connector` block to ensure traffic is routed securely"
+      ]
+    },
+    {
+      "condition": "The `vpc_access_connector` block must be defined",
+      "attribute_path": ["vpc_access_connector", "name"],
+      "values": [""],
+      "policy_type": "not null"
+    }
+  ]
 ]
 
-summary := helpers.get_summary(vars.resource_type, attribute_path, compliant_values, vars.friendly_resource_name)
+message := helpers.get_multi_summary(conditions, vars.variables).message
+details := helpers.get_multi_summary(conditions, vars.variables).details

@@ -3,9 +3,18 @@ package terraform.gcp.security.app_engine.env_vars_encrypted
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.app_engine.env_vars_encrypted.vars
 
-attribute_path := "env_variables.SECRET_SOURCE"
-compliant_values := [
-  "projects/my-project/secrets/SECRET_NAME"
+conditions := [
+  [
+    {"situation_description" : "Sensitive environment variables are not sourced from Secret Manager.",
+     "remedies": [ "Use Secret Manager via 'env_variables.SECRET_SOURCE'" ]},
+    {
+      "condition": "Ensure sensitive environment variables are encrypted via Secret Manager",
+      "attribute_path": ["env_variables", "SECRET_SOURCE"],
+      "values": ["projects/*/secrets/*"],
+      "policy_type": "pattern whitelist"
+    }
+  ]
 ]
 
-summary := helpers.get_summary(vars.resource_type, attribute_path, compliant_values, vars.friendly_resource_name)
+message := helpers.get_multi_summary(conditions, vars.variables).message
+details := helpers.get_multi_summary(conditions, vars.variables).details

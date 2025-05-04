@@ -3,11 +3,23 @@ package terraform.gcp.security.app_engine.runtime_restriction
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.app_engine.runtime_restriction.vars
 
-attribute_path := "runtime"
-compliant_values := [
-  "python3.9",
-  "nodejs18",
-  "go11.9"
+# Allow only a defined set of secure/approved runtimes
+# For example: python39, nodejs18, go119, etc.
+
+conditions := [
+  [
+    {"situation_description" : "An unapproved runtime is being used",
+     "remedies": [ 
+        "Use an approved runtime like python39, nodejs18, or go119" 
+     ]},
+    {
+      "condition": "Runtime must be in allowed list",
+      "attribute_path": ["runtime"],
+      "values": ["python3.9", "nodejs18", "go119", "java17"],
+      "policy_type": "whitelist"
+    }
+  ]
 ]
 
-summary := helpers.get_summary(vars.resource_type, attribute_path, compliant_values, vars.friendly_resource_name)
+message := helpers.get_multi_summary(conditions, vars.variables).message
+details := helpers.get_multi_summary(conditions, vars.variables).details

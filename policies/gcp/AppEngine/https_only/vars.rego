@@ -1,4 +1,7 @@
 package terraform.gcp.security.app_engine.https_only.vars
 
-friendly_resource_name := "App Engine HTTPS Only Service"
-resource_type := "google_app_engine_standard_app_version"
+variables := {
+    "friendly_resource_name": "App Engine Inbound Services",
+    "resource_type": "google_app_engine_standard_app_version",
+    "resource_value_name": "inbound_services"
+}

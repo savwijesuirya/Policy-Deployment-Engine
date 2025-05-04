@@ -1,4 +1,7 @@
 package terraform.gcp.security.app_engine.internal_ingress_only.vars
 
-friendly_resource_name := "App Engine Ingress"
-resource_type := "google_app_engine_standard_app_version"
+variables := {
+  "friendly_resource_name": "App Engine Firewall Rule",
+  "resource_type": "google_app_engine_firewall_rule",
+  "resource_value_name": "source_range"
+}

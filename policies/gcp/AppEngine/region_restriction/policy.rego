@@ -1,9 +1,25 @@
-package terraform.gcp.security.app_engine.service.region_restriction
+package terraform.gcp.security.app_engine.region_restriction
 
 import data.terraform.gcp.helpers
-import data.terraform.gcp.security.app_engine.service.vars
+import data.terraform.gcp.security.app_engine.region_restriction.vars
 
-attribute_path := "location_id"
-compliant_values := ["australia-southeast2"]
+# Enforce use of only approved regions (e.g., us-central, europe-west, etc.)
+# Disallow deployment to unapproved or global/multi-region locations
 
-summary := helpers.get_summary(vars.resource_type, attribute_path, compliant_values, vars.friendly_resource_name)
+conditions := [
+  [
+    {"situation_description" : "Deployment is using an unapproved region",
+     "remedies": [ 
+        "Update the region to an allowed one such as us-central or europe-west" 
+     ]},
+    {
+      "condition": "Region must be in allowed list",
+      "attribute_path": ["location_id"],
+      "values": ["us-central", "us-east1", "europe-west1", "asia-southeast1"],
+      "policy_type": "whitelist"
+    }
+  ]
+]
+
+message := helpers.get_multi_summary(conditions, vars.variables).message
+details := helpers.get_multi_summary(conditions, vars.variables).details

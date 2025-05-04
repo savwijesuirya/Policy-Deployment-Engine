@@ -1,4 +1,7 @@
 package terraform.gcp.security.app_engine.env_vars_encrypted.vars
 
-friendly_resource_name := "App Engine Environment Variables Encryption"
-resource_type := "google_app_engine_standard_app_version"
+variables := {
+    "friendly_resource_name": "App Engine Environment Variables",
+    "resource_type": "google_app_engine_standard_app_version",
+    "resource_value_name": "env_variables"
+}

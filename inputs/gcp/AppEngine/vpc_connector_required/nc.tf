@@ -2,6 +2,7 @@ resource "google_app_engine_standard_app_version" "nc" {
   service  = "default"
   version_id = "v1"
   runtime  = "nodejs18"
+  project = "my-project"
 
   # Missing vpc_access_connector
 
