@@ -65,6 +65,12 @@ resource "google_backup_dr_backup_plan_association" "nc" {
    ```
 2. **Evaluate** the `resource_type` policy:
    ```bash
-   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/resource_type/plan.json  --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.resource_type.summary.message"
+   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/resource_type/plan.json  --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.resource_type.message"
    ```
+   <img width="752" alt="image" src="https://github.com/user-attachments/assets/0891ea76-d689-4a7b-b646-ef909da4e97a" />
+  ```bash
+  opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/backup_plan_association/resource_type/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.resource_type.details"
+  ```
+  <img width="757" alt="image" src="https://github.com/user-attachments/assets/a7deb547-f7b2-44a4-9902-f980d632c1da" />
+
 3. **Review** the output—any Backup Plan Association whose `resource_type` isn’t exactly `compute.googleapis.com/Instance` will be flagged as non-compliant.
