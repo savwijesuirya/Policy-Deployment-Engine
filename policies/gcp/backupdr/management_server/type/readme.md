@@ -60,5 +60,11 @@ In the non-compliant example, setting `type = ""` will be caught by our OPA poli
    ```
 2. Run the OPA check:
    ```bash
-   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/type/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.management_server.type.summary.message"   
+   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/type/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.management_server.type.message"   
    ```
+   <img width="749" alt="image" src="https://github.com/user-attachments/assets/a3550d98-fe70-4685-b3be-4f60b6db1fc4" />
+```bash
+   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/type/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.management_server.type.details"
+```
+   <img width="767" alt="image" src="https://github.com/user-attachments/assets/fdf9386d-3673-4931-8a33-35443138066e" />
+
