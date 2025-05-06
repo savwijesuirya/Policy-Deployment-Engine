@@ -105,6 +105,12 @@ resource "google_backup_dr_backup_plan" "nc" {
    ```
 2. **Run** the `backup_vault` policy:  
    ```bash
-    opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/plan/backup_vault/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan.backup_vault.summary.message"
+    opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/plan/backup_vault/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan.backup_vault.message"
    ```
-3. **Review** the output—any mis-configured `backup_vault` reference will be flagged as non-compliant.
+   <img width="755" alt="image" src="https://github.com/user-attachments/assets/434aac82-6d0b-45ef-b2ed-db7371a8647c" />
+```bash
+opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/plan/backup_vault/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan.backup_vault.details"
+```
+   <img width="769" alt="image" src="https://github.com/user-attachments/assets/294600cc-29f7-4874-a09d-e63c57b22e4e" />
+
+4. **Review** the output—any mis-configured `backup_vault` reference will be flagged as non-compliant.
