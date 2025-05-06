@@ -43,13 +43,10 @@ To evaluate the policy using OPA:
 opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/vault/backup_vault_id/plan.json --format pretty \
   "data.terraform.gcp.security.backupdr.vault.backup_vault_id.summary.message"
 ```
+<img width="762" alt="image" src="https://github.com/user-attachments/assets/c624beee-fbe5-4d92-9d50-332bb2288f5d" />
 
-## 📊 Example Output
-
-```json
-[
-  "Total GCP Backup Vault detected: 2",
-  "Non-compliant GCP Backup Vault: 1/2",
-  "GCP Backup Vault with invalid ID: 'invalid-id-01'"
-]
+```bash
+opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/vault/backup_vault_id/plan.json --format pretty  "data.terraform.gcp.security.backupdr.vault.backup_vault_id.details"
 ```
+<img width="761" alt="image" src="https://github.com/user-attachments/assets/712a26a0-4b52-4847-9afe-c9c51a1added" />
+
