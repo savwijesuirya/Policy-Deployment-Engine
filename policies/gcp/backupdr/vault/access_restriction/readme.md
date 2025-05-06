@@ -93,7 +93,13 @@ resource "google_backup_dr_backup_vault" "nc" {
 
 2. **Evaluate** the `access_restriction` policy:
    ```bash
-   opa eval  --data ./policies/gcp  --input ./inputs\gcp\backupdr\vault\access_restriction\plan.json  --format pretty  "data.terraform.gcp.security.backupdr.vault.access_restriction.summary.message"
+   opa eval  --data ./policies/gcp  --input ./inputs\gcp\backupdr\vault\access_restriction\plan.json  --format pretty  "data.terraform.gcp.security.backupdr.vault.access_restriction.message"
    ```
+   <img width="758" alt="image" src="https://github.com/user-attachments/assets/b61fa919-a00f-4fea-9777-0f55262de9b5" />
 
-3. **Interpret** the results. Any vault with `access_restriction` not equal to `"WITHIN_ORGANIZATION"` will be flagged.
+   ```bash
+   opa eval  --data ./policies/gcp  --input ./inputs\gcp\backupdr\vault\access_restriction\plan.json  --format pretty  "data.terraform.gcp.security.backupdr.vault.access_restriction.details"
+   ```
+   <img width="755" alt="image" src="https://github.com/user-attachments/assets/82718eb7-156e-4fc5-bfef-b6cb2f554b83" />
+
+4. **Interpret** the results. Any vault with `access_restriction` not equal to `"WITHIN_ORGANIZATION"` will be flagged.
