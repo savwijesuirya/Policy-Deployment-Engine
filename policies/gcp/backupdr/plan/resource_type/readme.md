@@ -65,7 +65,7 @@ resource "google_backup_dr_backup_plan" "c" {
 ```hcl
 resource "google_backup_dr_backup_plan" "nc" {
   backup_plan_id = "invalid-resource"
-  resource_type  = "GCE_DISK"     # ❌ Unapproved type
+  resource_type  = "INVALID_TYPE"     # ❌ Unapproved type
   location       = "australia-southeast1"
   project        = "policy-deployment-backups"
   backup_vault   = "projects/policy-deployment-backups/locations/australia-southeast1/backupVaults/approved-vault"
@@ -99,7 +99,12 @@ resource "google_backup_dr_backup_plan" "nc" {
 
 2. **Evaluate** the `resource_type` policy:  
    ```bash
-   opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/plan/resource_type/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan.resource_type.summary.message"
+   opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/plan/resource_type/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan.resource_type.message"
    ```
+   <img width="758" alt="image" src="https://github.com/user-attachments/assets/146378d7-2369-4d0c-9f5f-ba1055abd9e5" />
+```bash
+opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/plan/resource_type/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan.resource_type.details"
+```
+   <img width="763" alt="image" src="https://github.com/user-attachments/assets/745adefe-e0a9-4873-b336-cbe419c981ba" />
 
 3. **Interpret** the results. Any backup plan with a `resource_type` not equal to `"GCE_VM"` will be flagged as non-compliant.
