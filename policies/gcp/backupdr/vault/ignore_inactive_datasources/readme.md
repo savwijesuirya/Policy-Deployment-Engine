@@ -48,24 +48,16 @@ If this value is not correctly configured, it may prevent vault deletions or cau
 Use the command below to evaluate compliance:
 
 ```bash
-opa eval \
---data ./policies/gcp \
---input ./inputs/gcp/backupdr/vault/ignore_inactive_datasources/plan.json \
---format pretty \
-"data.terraform.gcp.security.backupdr.vault.ignore_inactive_datasources.summary.message"
+opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/vault/ignore_inactive_datasources/plan.json --format pretty "data.terraform.gcp.security.backupdr.vault.ignore_inactive_datasources.message"
+```
+<img width="757" alt="image" src="https://github.com/user-attachments/assets/ed14f5cb-3d29-4a6e-9219-eb83ff952c7e" />
+
+``` bash
+opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/vault/ignore_inactive_datasources/plan.json --format pretty "data.terraform.gcp.security.backupdr.vault.ignore_inactive_datasources.details"
 ```
 
-### ✅ Sample Output:
-
+<img width="751" alt="image" src="https://github.com/user-attachments/assets/a2ddd871-a81d-4f35-a08a-50155b2506e7" />
 ```
-[
-  "Total GCP Backup Vault detected: 2",
-  "Non-compliant GCP Backup Vault: 0/2"
-]
-```
-
----
-
 ## 📊 Compliance Summary
 
 | Attribute                     | Required Value |
