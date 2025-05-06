@@ -69,12 +69,12 @@ resource "google_backup_dr_backup_plan_association" "nc" {
    ```bash
    opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/resource/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan_association.resource.message"
    ```
-  <img width="776" alt="image" src="https://github.com/user-attachments/assets/1864f27a-f5b3-4eec-bb6f-75aa15f507b7" />
+<img width="758" alt="image" src="https://github.com/user-attachments/assets/cbe91365-1488-459e-840c-1ddd01938c88" />
  
   ```bash
   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/resource/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan_association.resource.details"
   ```
- <img width="773" alt="image" src="https://github.com/user-attachments/assets/0f90aac8-e4ed-42d3-bd5a-885d7f69b508" />
+<img width="752" alt="image" src="https://github.com/user-attachments/assets/8f00a4cb-3ebf-4c56-a60c-40daca48903e" />
 
 
 4. **Review** the output—any association whose `resource` path is malformed will be flagged as non-compliant.
