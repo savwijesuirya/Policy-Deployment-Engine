@@ -60,12 +60,12 @@ resource "google_backup_dr_backup_plan_association" "nc" {
    ```bash
      opa eval  --data ./policies/gcp   --input ./inputs/gcp/backupdr/backup_plan_association/project/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan_association.project.message"
    ```
-   <img width="779" alt="image" src="https://github.com/user-attachments/assets/c4f4b50c-0e0a-44b5-ac4a-8ea56e9a3602" />
+<img width="754" alt="image" src="https://github.com/user-attachments/assets/ba357d6a-a25e-4cce-92fd-56f884e8a88a" />
 
   ```bash
   opa eval  --data ./policies/gcp   --input ./inputs/gcp/backupdr/backup_plan_association/project/plan.json  --format pretty
 "data.terraform.gcp.security.backupdr.backup_plan_association.project.details" 
   ```
-  <img width="778" alt="image" src="https://github.com/user-attachments/assets/4255c49b-68c4-42c1-bbe6-3020e506136a" />
+<img width="766" alt="image" src="https://github.com/user-attachments/assets/a973efab-c041-4019-8059-5699c0551b28" />
 
 3. **Inspect** the output—any association whose `project` is not `"policy-deployment-backups"` will be reported as non-compliant.
