@@ -97,7 +97,7 @@ resource "google_backup_dr_backup_plan" "nc" {
    ```
 2. **Run** the `location` policy:  
    ```bash
-   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/resource/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan_association.resource.message"
+      opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/plan/location/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan.location.message"
    ```
    <img width="754" alt="image" src="https://github.com/user-attachments/assets/aee9b90c-e2d3-49aa-bf11-ee1fc63c4b90" />
 
