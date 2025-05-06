@@ -64,9 +64,9 @@ resource "google_backup_dr_backup_plan_association" "nc" {
    ```bash
    opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/backup_plan_association/backup_plan_association_id/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.backup_plan_association_id.message""
    ```
-   <img width="782" alt="image" src="https://github.com/user-attachments/assets/41d686c4-acc5-4ea0-8173-8f0a0a35df32" />
+  <img width="760" alt="image" src="https://github.com/user-attachments/assets/32ba2946-6634-458e-893d-5a92558bab46" />
 
    ```bash
    opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/backup_plan_association/backup_plan_association_id/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.backup_plan_association_id.details"
    ```
-   <img width="759" alt="image" src="https://github.com/user-attachments/assets/f1d7e6ea-64a7-4aea-be03-aeeb5a5929b3" />
+  <img width="763" alt="image" src="https://github.com/user-attachments/assets/965379ac-19a7-4fa9-b0d5-e141a910b3ff" />
