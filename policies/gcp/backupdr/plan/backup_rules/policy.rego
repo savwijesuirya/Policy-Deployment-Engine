@@ -1,31 +1,29 @@
-package terraform.gcp.security.backupdr.backup_plan.backup_rules 
-
+package terraform.gcp.security.backupdr.backup_plan.backup_rules  # Edit here
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.backupdr.backup_plan.vars
 
-attribute_path := "backup_rules.backup_retention_days" # Edit here (eg., "storage_class")
-compliant_values := [
-    30,
+# STEP 1: STUDY YOUR RESOURCE AND ITS ATTRIBUTES, THEN FILL IN THE VARS FILE
+
+# STEP 2: CREATE SCENARIOS
+conditions := [
+  [
+    {
+      "situation_description": "Each backup rule must have a retention period of 30 days",
+      "remedies": [
+        "Set `backup_retention_days` to 30 in each `backup_rules` block"
+      ]
+    },
+    {
+      "condition":      "backup_retention_days not equal 30",
+      "attribute_path": ["values","backup_rules",0,"backup_retention_days"],
+      "values":         [30],
+      "policy_type":    "whitelist"
+    }
+  ]
 ]
 
-non_compliant_plans[plan] if {
-    plan := input.planned_values.root_module.resources[_]
-    plan.type == vars.resource_type
-    backup_rule := plan.values.backup_rules[_]
-    not helpers.array_contains(compliant_values, backup_rule.backup_retention_days)
-}
+# Displays a general message about policy compliance
+message := helpers.get_multi_summary(conditions, vars.variables).message
 
-total_plans := count([
-    plan |
-    plan := input.planned_values.root_module.resources[_]
-    plan.type == vars.resource_type
-])
-
-non_compliant_count := count(non_compliant_plans)
-
-summary := {
-    "message": [
-        sprintf("Total GCP Backup DR Backup Plan detected: %v", [total_plans]),
-        sprintf("Non-compliant GCP Backup DR Backup Plan: %v/%v", [non_compliant_count, total_plans]),
-    ],
-}
+# Displays a detailed summary of each resource’s compliance
+details := helpers.get_multi_summary(conditions, vars.variables).details

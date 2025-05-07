@@ -1,32 +1,32 @@
 package terraform.gcp.security.backupdr.vault.backup_vault_id
 
-attribute_path := "backup_vault_id"
-compliant_values := ["backup-vault-c"]
+import data.terraform.gcp.helpers
+import data.terraform.gcp.security.backupdr.vault.vars
 
-resources := [r |
-  r := input.planned_values.root_module.resources[_]
-  r.type == "google_backup_dr_backup_vault"
-]
-
-non_compliant := [r |
-  r := resources[_]
-  not r.values[attribute_path] == "backup-vault-c"
-]
-
-summary_lines := [
-  sprintf("Total GCP Backup Vault detected: %d", [count(resources)]),
-  sprintf("Non-compliant GCP Backup Vault: %d/%d", [count(non_compliant), count(resources)])
-]
-
-violation_lines := [
-  sprintf("GCP Backup Vault with invalid ID: '%s'", [r.values[attribute_path]]) |
-  r := non_compliant[_]
-]
-
-summary := {
-  "message": array.concat(summary_lines, violation_lines)
+# Override so that violations report the actual backup_vault_id value
+vars_override := {
+    "friendly_resource_name": vars.variables.friendly_resource_name,
+    "resource_type":         vars.variables.resource_type,
+    "resource_value_name":   "backup_vault_id",
 }
 
-debug_non_compliant_ids := [r.values[attribute_path] |
-  r := non_compliant[_]
+conditions := [
+  [
+    {
+      "situation_description": "Backup Vault ID must be `backup-vault-c`",
+      "remedies": [
+        "Set `backup_vault_id` to `backup-vault-c`"
+      ]
+    },
+    {
+      "condition":      "backup_vault_id not in approved list",
+      "attribute_path": ["backup_vault_id"],
+      "values":         ["backup-vault-c"],
+      "policy_type":    "whitelist"
+    }
+  ]
 ]
+
+# Use our override so that the helper reports by the backup_vault_id value
+message := helpers.get_multi_summary(conditions, vars_override).message
+details := helpers.get_multi_summary(conditions, vars_override).details

@@ -1,25 +1,33 @@
 package terraform.gcp.security.backupdr.backup_plan_association.location
+
+import data.terraform.gcp.helpers
 import data.terraform.gcp.security.backupdr.backup_plan_association.vars
-attribute_path := "location"
-approved := {
-    "australia-southeast1",
+
+# Report violations by the location string itself
+vars_override := {
+    "friendly_resource_name": vars.variables.friendly_resource_name,
+    "resource_type":         vars.variables.resource_type,
+    "resource_value_name":   "location",
 }
-resources := [
-    r |
-    r := input.planned_values.root_module.resources[_]
-    r.type == vars.resource_type
+
+conditions := [
+  [
+    {
+      "situation_description": "Location must be the designated region",
+      "remedies": [
+        "Set `location` to `australia-southeast1`"
+      ]
+    },
+    {
+      "condition":      "location not in approved list",
+      # Look up resource.values.location directly
+      "attribute_path": "location",
+      "values":         ["australia-southeast1"],
+      "policy_type":    "whitelist"
+    }
+  ]
 ]
-total_count := count(resources)
 
-non_compliant_count := count([
-    r |
-    r := resources[_]
-    not approved[r.values[attribute_path]]
-])
-
-summary := {
-    "message": [
-        sprintf("Total %s detected: %d", [vars.friendly_resource_name, total_count]),
-        sprintf("Non-compliant %s: %d/%d", [vars.friendly_resource_name, non_compliant_count, total_count])
-    ]
-}
+# Top‐level message and detailed outputs:
+message := helpers.get_multi_summary(conditions, vars_override).message
+details := helpers.get_multi_summary(conditions, vars_override).details

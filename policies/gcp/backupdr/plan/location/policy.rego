@@ -1,28 +1,35 @@
 package terraform.gcp.security.backupdr.backup_plan.location
 
+import data.terraform.gcp.helpers
 import data.terraform.gcp.security.backupdr.backup_plan.vars
 
-# the only approved location
-compliant_location := "australia-southeast1"
+# Report violations against the location value itself
+vars_override := {
+    "friendly_resource_name": vars.variables.friendly_resource_name,
+    "resource_type":          vars.variables.resource_type,
+    "resource_value_name":    "location",
+}
 
-# gather all backup_plan resources
-resources := [
-  r |
-    r := input.planned_values.root_module.resources[_]
-    r.type == vars.resource_type
+conditions := [
+  [
+    {
+      "situation_description": "Backup Plan must be created in the approved region",
+      "remedies": [
+        "Set `location` to `australia-southeast1`"
+      ]
+    },
+    {
+      "condition":      "location not in approved list",
+      # Drill directly into the `location` field
+      "attribute_path": ["location"],
+      "values":         ["australia-southeast1"],
+      "policy_type":    "whitelist"
+    }
+  ]
 ]
 
-total := count(resources)
+# General compliance summary
+message := helpers.get_multi_summary(conditions, vars_override).message
 
-# count non-compliant ones
-non_compliant := count([
-  r |
-    r := resources[_]
-    r.values.location != compliant_location
-])
-
-# now summary is just the two-element array you want
-summary := [
-  sprintf("Total %s detected: %d",      [vars.friendly_resource_name, total]),
-  sprintf("Non-compliant %s: %d/%d",    [vars.friendly_resource_name, non_compliant, total])
-]
+# Detailed per-resource compliance
+details := helpers.get_multi_summary(conditions, vars_override).details

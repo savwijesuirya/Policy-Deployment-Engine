@@ -1,4 +1,7 @@
-package terraform.gcp.security.backupdr.vault.vars
+package terraform.gcp.security.backupdr.backup_plan.vars
 
-friendly_resource_name := "GCP Backup Vault"
-resource_type := "google_backup_dr_backup_vault"
+variables := {
+    "friendly_resource_name": "GCP Backup DR Backup Plan",
+    "resource_type":         "google_backup_dr_backup_plan",
+    "resource_value_name":   "backup_vault_id"
+}

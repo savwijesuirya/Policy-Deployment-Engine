@@ -1,38 +1,32 @@
 package terraform.gcp.security.backupdr.vault.retention
 
-attribute_path := "backup_minimum_enforced_retention_duration"
-compliant_values := ["86400s"]
+import data.terraform.gcp.helpers
+import data.terraform.gcp.security.backupdr.vault.vars
 
-resources := [r |
-  some i
-  r := input.planned_values.root_module.resources[i]
-  r.type == "google_backup_dr_backup_vault"
-]
-
-non_compliant := [r |
-  some i
-  r := resources[i]
-  not is_compliant(r.values[attribute_path])
-]
-
-is_compliant(val) if {
-  val == "86400s"
+# Override so violations report the retention value itself
+vars_override := {
+    "friendly_resource_name": vars.variables.friendly_resource_name,
+    "resource_type":         vars.variables.resource_type,
+    "resource_value_name":   "backup_minimum_enforced_retention_duration",
 }
 
-summary_lines := [
-  sprintf("Total GCP Backup Vaults found: %d", [count(resources)]),
-  sprintf("Non-compliant GCP Backup Vaults: %d/%d", [count(non_compliant), count(resources)])
+conditions := [
+  [
+    {
+      "situation_description": "Backup Vault minimum enforced retention duration must be 86400s",
+      "remedies": [
+        "Set `backup_minimum_enforced_retention_duration` to `86400s`"
+      ]
+    },
+    {
+      "condition":      "Incorrect retention duration",
+      # look directly at resource.values.backup_minimum_enforced_retention_duration
+      "attribute_path": ["backup_minimum_enforced_retention_duration"],
+      "values":         ["86400s"],
+      "policy_type":    "whitelist"
+    }
+  ]
 ]
 
-violation_lines := [
-  sprintf(
-    "GCP Backup Vault '%s' uses unapproved %s: '%s'",
-    [r.values["name"], replace(attribute_path, "_", " "), r.values[attribute_path]]
-  ) |
-  some i
-  r := non_compliant[i]
-]
-
-summary := {
-  "message": array.concat(summary_lines, violation_lines)
-}
+message := helpers.get_multi_summary(conditions, vars_override).message
+details := helpers.get_multi_summary(conditions, vars_override).details
