@@ -37,19 +37,12 @@ Any vault configured outside these regions will be marked as **non-compliant**.
 ## ▶️ Run the Policy
 
 ```bash
-opa eval \
-  --data ./policies/gcp \
-  --input ./inputs/gcp/backupdr/vault/location/plan.json \
-  --format pretty \
-  "data.terraform.gcp.security.backupdr.vault.location.summary.message"
+opa eval   --data ./policies/gcp   --input ./inputs/gcp/backupdr/vault/location/plan.json   --format pretty   "data.terraform.gcp.security.backupdr.vault.location.message"
 ```
-## ✅ Sample Output
+<img width="768" alt="image" src="https://github.com/user-attachments/assets/2b90469e-1218-4bb6-9181-36828ec5d0b6" />
 
-If both vaults use compliant regions, the OPA evaluation output will be:
-
-```text
-[
-  "Total GCP Backup Vaults found: 2",
-  "Non-compliant GCP Backup Vaults: 0/2"
-]
+```bash
+opa eval   --data ./policies/gcp   --input ./inputs/gcp/backupdr/vault/location/plan.json   --format pretty   "data.terraform.gcp.security.backupdr.vault.location.details"
 ```
+<img width="760" alt="image" src="https://github.com/user-attachments/assets/88f0e8ff-31e6-4787-ac0a-9e92312fbe0e" />
+

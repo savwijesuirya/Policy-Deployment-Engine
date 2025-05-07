@@ -64,5 +64,10 @@ In the non-compliant example, `"MS_Console!"` will be caught by our OPA policy b
 2. Run `terraform plan -out=plan.json` to produce a JSON plan.  
 3. Validate compliance with OPA:
    ```bash
-   opa eval   --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/name/plan.json --format pretty  "data.terraform.gcp.security.backupdr.management_server.name.summary.message"    
+   opa eval   --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/name/plan.json --format pretty  "data.terraform.gcp.security.backupdr.management_server.name.message"    
    ```
+   <img width="758" alt="image" src="https://github.com/user-attachments/assets/76cd85c3-d082-42a0-b724-3e18aaf6c4f4" />
+  ```bash
+    opa eval   --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/name/plan.json --format pretty  "data.terraform.gcp.security.backupdr.management_server.name.details"
+  ```
+  <img width="761" alt="image" src="https://github.com/user-attachments/assets/2f5e7183-4115-4f27-b766-9169ef0ede1f" />

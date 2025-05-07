@@ -38,29 +38,15 @@ To check your Terraform plan against this policy, use the Open Policy Agent (OPA
 2.  Execute the following command:
 
     ```bash
-    opa eval \
-      --data ./policies/gcp \
-      --input ./inputs/gcp/backupdr/vault/retention/plan.json \
-      --format pretty \
-      "data.terraform.gcp.security.backupdr.vault.retention.summary.message"
+    opa eval   --data ./policies/gcp   --input ./inputs/gcp/backupdr/vault/retention/plan.json   --format pretty   "data.terraform.gcp.security.backupdr.vault.retention.message"
     ```
+    <img width="758" alt="image" src="https://github.com/user-attachments/assets/93093fc7-7cdb-417b-99fc-179db47b8ee8" />
 
-    * `--data ./policies/gcp`: Specifies the directory containing your policy files.
-    * `--input ./inputs/gcp/backupdr/vault/retention/plan.json`: Points to your Terraform plan file in JSON format.
-    * `--format pretty`: Formats the output for better readability.
-    * `"data.terraform.gcp.security.backupdr.vault.retention.summary.message"`: Specifies the Rego path to evaluate, which will output the summary message.
+    ```bash
+    opa eval   --data ./policies/gcp   --input ./inputs/gcp/backupdr/vault/retention/plan.json   --format pretty   "data.terraform.gcp.security.backupdr.vault.retention.details"
+    ```
+    <img width="761" alt="image" src="https://github.com/user-attachments/assets/78f1b929-90f7-4513-9019-898d5e88729a" />
 
-## 🧾 Example Output
-
-Here's an example of the output you might see when running the policy against a Terraform plan:
-
-```
-[
-  "Total GCP Backup Vaults found: 2",
-  "Non-compliant GCP Backup Vaults: 1/2",
-  "GCP Backup Vault 'backup-vault-nc' uses unapproved backup minimum enforced retention duration: '3600s'"
-]
-```
 
 In this example, the policy found two GCP Backup Vaults. One vault (`backup-vault-nc`) was found to be non-compliant because its `backup_minimum_enforced_retention_duration` was set to `3600s` instead of the required `86400s`.
 

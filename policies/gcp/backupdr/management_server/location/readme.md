@@ -65,8 +65,16 @@ In the second example, `"europe-west1"` will be caught by our OPA policy as non-
 2. Run `terraform plan -out=plan` to produce a JSON plan.  
 3. Check compliance with OPA:
    ```bash
-   opa eval   --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/location/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.management_server.location.summary.message"
+   opa eval   --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/location/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.management_server.location.message"
    ```
+   <img width="763" alt="image" src="https://github.com/user-attachments/assets/4d210248-b356-4bb6-9e55-55901c3b3b1a" />
+
+  ```bash
+    opa eval   --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/location/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.management_server.location.details"
+  ```
+  <img width="758" alt="image" src="https://github.com/user-attachments/assets/bbe9f364-12ed-4495-95bb-44a3336860a2" />
+
+
 4. Address any violations before applying.
 
 ---

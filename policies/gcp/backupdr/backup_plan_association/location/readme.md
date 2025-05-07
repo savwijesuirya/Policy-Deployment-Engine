@@ -59,8 +59,15 @@ resource "google_backup_dr_backup_plan_association" "nc" {
    ```
 2. **Run** the location policy:
    ```bash
-    opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/location/plan.json --format pretty  "data.terraform.gcp.security.backupdr.backup_plan_association.location.summary.message" 
+    opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/location/plan.json --format pretty  "data.terraform.gcp.security.backupdr.backup_plan_association.location.message" 
    ```
+ <img width="757" alt="image" src="https://github.com/user-attachments/assets/2fb57ac5-f495-4a0d-9dbc-c1980f0b2814" />
+
+ ```bash
+opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/location/plan.json --format pretty  "data.terraform.gcp.security.backupdr.backup_plan_association.location.details" 
+```
+ <img width="763" alt="image" src="https://github.com/user-attachments/assets/288abb83-e1bb-4d33-bc85-60ad50fb2226" />
+
 3. **Review** output—any `location` not set to `"australia-southeast1"` will be flagged as non-compliant.
 
 ---

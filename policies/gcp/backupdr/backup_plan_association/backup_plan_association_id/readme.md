@@ -62,6 +62,11 @@ resource "google_backup_dr_backup_plan_association" "nc" {
    ```
 2. **Run** the `backup_plan_association_id` policy:
    ```bash
-   opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/backup_plan_association_id/backup_plan_association_id/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.backup_plan_association_id.summary.message"
+   opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/backup_plan_association/backup_plan_association_id/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.backup_plan_association_id.message""
    ```
-3. **Verify** that any offending IDs are flagged as non-compliant.
+  <img width="760" alt="image" src="https://github.com/user-attachments/assets/32ba2946-6634-458e-893d-5a92558bab46" />
+
+   ```bash
+   opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/backup_plan_association/backup_plan_association_id/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.backup_plan_association_id.details"
+   ```
+  <img width="763" alt="image" src="https://github.com/user-attachments/assets/965379ac-19a7-4fa9-b0d5-e141a910b3ff" />

@@ -56,6 +56,11 @@ resource "google_backup_dr_backup_plan_association" "nc" {
    ```
 2. Run the `backup_plan` policy:
    ```bash
-   opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/backup_plan_association/backup_plan/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.backup_plan.summary"    
+   opa eval   --data ./policies/gcp   --input ./inputs/gcp/backupdr/backup_plan_association/backup_plan/plan.json  --format pretty   "data.terraform.gcp.security.backupdr.backup_plan_association.backup_plan.message"
    ```
-3. Confirm that no associations have an empty `backup_plan`.
+   ![image](https://github.com/user-attachments/assets/39c8feda-7278-4da3-b381-85d2c01cbc75)
+```bash
+opa eval   --data ./policies/gcp   --input ./inputs/gcp/backupdr/backup_plan_association/backup_plan/plan.json  --format pretty   "data.terraform.gcp.security.backupdr.backup_plan_association.backup_plan.details"
+```
+<img width="779" alt="image" src="https://github.com/user-attachments/assets/6c4d8541-ab44-4254-8c95-1e2401ec9045" />
+

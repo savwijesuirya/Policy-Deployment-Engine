@@ -97,6 +97,13 @@ resource "google_backup_dr_backup_plan" "nc" {
    ```
 2. **Run** the `location` policy:  
    ```bash
-   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/resource/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan_association.resource.summary.message"
+      opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/plan/location/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan.location.message"
    ```
+   <img width="754" alt="image" src="https://github.com/user-attachments/assets/aee9b90c-e2d3-49aa-bf11-ee1fc63c4b90" />
+
+```bash
+   opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/plan/location/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan.location.details"
+```
+   <img width="767" alt="image" src="https://github.com/user-attachments/assets/5b14b715-6dc0-40d1-951e-e9a6820d9e04" />
+
 3. **Review** the output—any backup plan with an unapproved region will be flagged as non-compliant.

@@ -27,7 +27,7 @@ compute.googleapis.com/Instance
 - ❌ **Non-compliant**:  
   - Any other string, for example:  
     - `"storage.googleapis.com/Bucket"`  
-    - `"invalid.googleapis.com/Type"`  
+    - `""`  
 
 ---
 
@@ -48,7 +48,7 @@ resource "google_backup_dr_backup_plan_association" "c" {
 ```hcl
 resource "google_backup_dr_backup_plan_association" "nc" {
  location                    = "australia-southeast1"
-  resource_type               = "invalid.googleapis.com/Type"  # Invalid resource type
+  resource_type               = ""  # Invalid resource type
   backup_plan_association_id = "invalid-bpa-type"
   resource                   = "projects/policy-deployment-backups/zones/australia-southeast1-a/instances/instance-1"
   backup_plan                = "invalid-backup-plan"    # ❌ unsupported type
@@ -65,6 +65,15 @@ resource "google_backup_dr_backup_plan_association" "nc" {
    ```
 2. **Evaluate** the `resource_type` policy:
    ```bash
-   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/resource_type/plan.json  --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.resource_type.summary.message"
+   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/backup_plan_association/resource_type/plan.json  --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.resource_type.message"
    ```
+   
+  <img width="755" alt="image" src="https://github.com/user-attachments/assets/93d37bea-b066-474f-9311-dd6ae8e2a3bf" />
+  
+  ```bash
+  opa eval --data ./policies/gcp --input ./inputs/gcp/backupdr/backup_plan_association/resource_type/plan.json --format pretty "data.terraform.gcp.security.backupdr.backup_plan_association.resource_type.details"
+  ```
+
+  <img width="763" alt="image" src="https://github.com/user-attachments/assets/501ca859-9185-4577-92ad-667f75a89b0e" />
+
 3. **Review** the output—any Backup Plan Association whose `resource_type` isn’t exactly `compute.googleapis.com/Instance` will be flagged as non-compliant.

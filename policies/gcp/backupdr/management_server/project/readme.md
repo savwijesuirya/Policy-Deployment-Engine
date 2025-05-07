@@ -58,5 +58,11 @@ In the non-compliant example, setting `project = "unknown-project"` will be caug
    ```
 2. Run the OPA check:
    ```bash
-   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/project/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.management_server.project.summary.message"
+   opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/project/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.management_server.project.message"
    ```
+   <img width="763" alt="image" src="https://github.com/user-attachments/assets/a8b1bd91-e273-4a99-9282-2c5226a17ea0" />
+  ```bash
+    opa eval  --data ./policies/gcp  --input ./inputs/gcp/backupdr/management_server/project/plan.json  --format pretty  "data.terraform.gcp.security.backupdr.management_server.project.details"
+  ```
+  <img width="760" alt="image" src="https://github.com/user-attachments/assets/dca5b3f7-3764-4dad-945e-b069bd2453d5" />
+
