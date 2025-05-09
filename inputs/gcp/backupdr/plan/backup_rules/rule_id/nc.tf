@@ -9,7 +9,7 @@ resource "google_backup_dr_backup_plan" "nc" {
   backup_vault   = "projects/policy-deployment-backups/locations/australia-southeast1/backupVaults/approved-vault"
 
   backup_rules {
-    rule_id               = "invalid_rule_id"   #  does not follow the approved naming convention
+    rule_id               = "INVALID_RULE_ID"   #  does not follow the approved naming convention
     backup_retention_days = 30
 
     standard_schedule {
