@@ -81,8 +81,18 @@ In the second example, the `network` value `"vpc-network"` will be caught by our
 2. Run `terraform plan` → get a JSON plan.  
 3. Evaluate with OPA to check compliance:
    ```bash
-   opa eval --data ./policies/gcp --input ./plan.json --format pretty  "data.terraform.gcp.security.backupdr.management_server.networks.summary.message"
+   opa eval --data ./policies/gcp --input inputs\gcp\backupdr\management_server\network\networks\plan.json --format pretty  "data.terraform.gcp.security.backupdr.management_server.networks.message"
    ```
+   <img width="761" alt="image" src="https://github.com/user-attachments/assets/61973137-fde8-4d17-83a7-70b4b853663f" />
+
+   ```bash
+    opa eval --data ./policies/gcp --input inputs\gcp\backupdr\management_server\network\networks\plan.json --format pretty  "data.terraform.gcp.security.backupdr.management_server.networks.details" 
+   ```
+   <img width="752" alt="image" src="https://github.com/user-attachments/assets/54ed95e6-0ed7-4496-b55b-e5916a3c30d1" />
+
+
+   
+
 4. Fix any reported violations before applying.
 
 ---
