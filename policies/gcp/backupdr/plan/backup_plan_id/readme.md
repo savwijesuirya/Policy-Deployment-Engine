@@ -102,6 +102,13 @@ resource "google_backup_dr_backup_plan" "nc" {
    ```
 2. **Evaluate** the `backup_plan_id` policy:
    ```bash
-    opa eval   --data ./policies/gcp   --input ./inputs/gcp/backupdr/plan/backup_plan_id/plan.json   --format pretty   "data.terraform.gcp.security.backupdr.backup_plan.backup_plan_id.summary.message"
+    opa eval   --data ./policies/gcp   --input ./inputs/gcp/backupdr/plan/backup_plan_id/plan.json   --format pretty   "data.terraform.gcp.security.backupdr.backup_plan.backup_plan_id.message"
    ```
+   <img width="756" alt="image" src="https://github.com/user-attachments/assets/3119832a-18b6-4b05-9312-3e410e48b371" />
+
+   ```bash
+    opa eval   --data ./policies/gcp   --input ./inputs/gcp/backupdr/plan/backup_plan_id/plan.json   --format pretty   "data.terraform.gcp.security.backupdr.backup_plan.backup_plan_id.details"
+   ```
+   <img width="755" alt="image" src="https://github.com/user-attachments/assets/4e23bf0a-565c-44b3-8666-1e7f8560d1e5" />
+
 3. **Review** the output—any Backup Plan whose `backup_plan_id` doesn’t match `^[a-z0-9-]+$` will show up as non-compliant.
