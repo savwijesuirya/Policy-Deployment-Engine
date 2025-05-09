@@ -1,90 +1,71 @@
-# `networks` Attribute for `google_backup_dr_management_server`
+# `peering_mode` Attribute in `networks` for `google_backup_dr_management_server`
 
-This README explains the `networks` attribute block for the **GCP Backup & DR Management Server** (`google_backup_dr_management_server`) resource. It covers:
-
-- What the attribute is for  
-- How to configure it in Terraform  
-- What constitutes **compliant** vs. **non-compliant** configurations  
+This README describes the compliance requirement for the `peering_mode` attribute inside the `networks` block of the `google_backup_dr_management_server` resource.
 
 ---
 
-## What is the `networks` Block?
+## Compliant Example (`c.tf`)
 
-The `networks` block tells Backup & DR which VPC network(s) your management server should use. Each block has two fields:
-
-- **`network`** (Required):  
-  Fully‐qualified Network URL in the form  
-  ```
-  projects/<PROJECT_ID>/global/networks/<NETWORK_NAME>
-  ```
-- **`peering_mode`** (Optional):  
-  How the service peering should be established.  
-  - Default: `PRIVATE_SERVICE_ACCESS`  
-  - Allowed values: `PRIVATE_SERVICE_ACCESS`
-
----
-
-## Compliance Policy
-
-Our policy enforces that every `network` must be **fully qualified**. In particular, it must:
-
-1. Start with  
-   ```
-   projects/<your-project-id>/global/networks/
-   ```
-2. Reference an existing VPC network in your project.
-
-Any entry that omits the `projects/...` prefix or points outside your project will be flagged as non-compliant.
-
----
-
-## Terraform Examples
-
-### Compliant Example (`c.tf`)
 ```hcl
+# Resource is compliant when peering_mode is set to PRIVATE_SERVICE_ACCESS
 resource "google_backup_dr_management_server" "c" {
-  name     = "ms-console"
+  provider = google
   location = "australia-southeast1"
-  project  = "policy-deployment-backups"
+  name     = "ms-console"
   type     = "BACKUP_RESTORE"
 
-  networks = [{
+  networks {
     network      = "projects/policy-deployment-backups/global/networks/vpc-network"
     peering_mode = "PRIVATE_SERVICE_ACCESS"
-  }]
+  }
 }
 ```
-
-### Non-Compliant Example (`nc.tf`)
-```hcl
-resource "google_backup_dr_management_server" "nc" {
-  name     = "ms-console"
-  location = "australia-southeast1"
-  project  = "policy-deployment-backups"
-  type     = "BACKUP_RESTORE"
-
-  networks = [{
-    # Missing the "projects/.../global/networks/" prefix
-    network      = "vpc-network"
-    peering_mode = "PRIVATE_SERVICE_ACCESS"
-  }]
-}
-```
-
-In the second example, the `network` value `"vpc-network"` will be caught by our OPA policy as non-compliant because it does not begin with the expected `projects/.../global/networks/` prefix.
 
 ---
+
+## Non‑Compliant Example (`nc.tf`)
+
+```hcl
+# Resource is non‑compliant when peering_mode is empty or invalid
+resource "google_backup_dr_management_server" "nc" {
+  provider = google
+  location = "australia-southeast1"
+  name     = "ms-console"
+  type     = "BACKUP_RESTORE"
+
+  networks {
+    network      = "projects/policy-deployment-backups/global/networks/vpc-network"
+    peering_mode = ""  # invalid value: must be PRIVATE_SERVICE_ACCESS
+  }
+}
+```
+
+In the non‑compliant example above, the empty `peering_mode` will be flagged by the OPA policy. Always use the full resource path for the network and set `peering_mode` to `PRIVATE_SERVICE_ACCESS` to meet compliance.
 
 ## How to Use
 
-1. Add your compliant block (as shown in **c.tf**) under `networks` in your Terraform resource.  
-2. Run `terraform plan` → get a JSON plan.  
-3. Evaluate with OPA to check compliance:
+1. Update your Terraform resource to include a compliant `networks` block (see **c.tf** above).
+2. Run:
+
    ```bash
-   opa eval --data ./policies/gcp --input ./plan.json --format pretty  "data.terraform.gcp.security.backupdr.management_server.networks.summary.message"
+   terraform plan -out=plan.json
    ```
-4. Fix any reported violations before applying.
+3. Check compliance with OPA:
+
+   ```bash
+     opa eval  --data ./policies/gcp  --input inputs\gcp\backupdr\plan\backup_rules\rule_id\plan.json  --format pretty  "data.terraform.gcp.security.backupdr.backup_plan.rule_id.message"
+   ```
+   <img width="779" alt="image" src="https://github.com/user-attachments/assets/5870aa91-0965-45be-834c-8019c66c6eda" />
+
+   ```bash
+   opa eval --data ./policies/gcp --input ./inputs\gcp\backupdr\management_server\network\peering_mode\plan.json  --format pretty  "data.terraform.gcp.security.backupdr.management_server.peering_mode.details"
+   ```
+   <img width="718" alt="image" src="https://github.com/user-attachments/assets/e3192322-1f8a-441e-bd1e-7ed3ebc7aae0" />
+
+
+   
+4. Fix any reported violations before applying your changes.
 
 ---
 
-> **🚀 Pro tip:** Keep your VPC network names consistent and always use the full resource path to avoid misconfiguration!
+> **🚀 Pro tip:** Always specify the full network resource path and set `peering_mode` to `PRIVATE_SERVICE_ACCESS` to ensure your management server can communicate securely via Private Service Access.
