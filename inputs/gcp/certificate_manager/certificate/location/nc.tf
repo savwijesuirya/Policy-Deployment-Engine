@@ -7,5 +7,6 @@ resource "google_certificate_manager_certificate" "nc" {
   project = "fake-policy-test-project"
   managed {
   domains = ["test.example.com"]
+  dns_authorizations = ["correctfilelocation"]
 }
 }

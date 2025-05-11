@@ -3,10 +3,11 @@
 
 resource "google_certificate_manager_certificate" "nc" {
   name = "certificatemanagertest1-nc"
-  location = "AU"
+ 
   scope = "DEFAULT"
   project = "fake-policy-test-project"
   managed {
   domains = ["test.example.com"]
+  dns_authorizations = ["correctfilelocation"]
 }
 }

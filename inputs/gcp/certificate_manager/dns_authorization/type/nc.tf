@@ -3,7 +3,7 @@
 
 resource "google_certificate_manager_dns_authorization" "nc" {
     name = "dns_authorization_nc"
-    domain = "test.example.com"
+    domain = "notcorrectexample.com"
     project = "fake-policy-test-project"
     type = "FIXED_RECORD"
 
