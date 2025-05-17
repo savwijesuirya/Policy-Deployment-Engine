@@ -1,18 +1,31 @@
-package terraform.gcp.security.certificate_manager.certificate_issuance_config.certificate_authority_config# Edit here 
+package terraform.gcp.security.certificate_manager.certificate_issuance_config.certificate_authority_config
+
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.certificate_manager.certificate_issuance_config.vars
 
-attribute_path := "certificate_authority_config"
-compliant_values := [
-   [
+conditions := [
+  [
     {
-      "certificate_authority_service_config": [
-        {
-          "ca_pool": "correctcarpool"
-        }
+      "situation_description": "Certificate authority config must use the correct CA pool.",
+      "remedies": [
+        "Set 'certificate_authority_service_config.ca_pool' to 'correctcarpool'"
       ]
+    },
+    {
+      "condition": "Ensure the CA pool is configured with the correct value",
+      "attribute_path": ["certificate_authority_config"],
+      "values": [[
+        {
+          "certificate_authority_service_config": [
+            {
+              "ca_pool": "correctcarpool"
+            }
+          ]
+        }
+      ]],
+      "policy_type": "whitelist"
     }
   ]
 ]
 
-summary := helpers.get_summary(vars.resource_type, attribute_path, compliant_values, vars.friendly_resource_name)
+message := helpers.get_multi_summary(conditions, vars.variables).message

@@ -1,7 +1,23 @@
-package terraform.gcp.security.certificate_manager.dns_authorization.domain # Edit here 
+package terraform.gcp.security.certificate_manager.dns_authorization.domain
+
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.certificate_manager.dns_authorization.vars
 
-attribute_path := "domain" 
-compliant_values := ["test.example.com"]
-summary := helpers.get_summary(vars.resource_type, attribute_path, compliant_values, vars.friendly_resource_name)
+conditions := [
+  [
+    {
+      "situation_description": "The DNS authorization domain is not configured to the expected value.",
+      "remedies": [
+        "Ensure the domain is set to 'https://test.example.com'"
+      ]
+    },
+    {
+      "condition": "Check if 'domain' is set to 'https://test.example.com'",
+      "attribute_path": ["domain"],
+      "values": ["test.example.com"],
+      "policy_type": "whitelist"
+    }
+  ]
+]
+
+message := helpers.get_multi_summary(conditions, vars.variables).message

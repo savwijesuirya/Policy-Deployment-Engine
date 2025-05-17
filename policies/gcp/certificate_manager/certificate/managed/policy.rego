@@ -1,21 +1,31 @@
-package terraform.gcp.security.certificate_manager.certificate.managed # Edit here 
+package terraform.gcp.security.certificate_manager.certificate.managed
+
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.certificate_manager.certificate.vars
 
-attribute_path := "managed"
-compliant_values := [
-   [  # ← list of objects, matching the actual structure
+conditions := [
+  [
     {
-      "domains": ["correctfilelocation"],
-      "dns_authorizations": null,
-      "issuance_config": "correctissuance"
+      "situation_description": "Managed certificate must have correct domain, issuance config, and no DNS authorizations.",
+      "remedies": [
+        "Set domains to ['correctfilelocation']",
+        "Ensure dns_authorizations is null",
+        "Set issuance_config to 'correctissuance'"
+      ]
+    },
+    {
+      "condition": "Enforce allowed values for managed certificate attributes",
+      "attribute_path": ["managed"],
+      "values": [[
+        {
+          "domains": ["correctfilelocation"],
+          "dns_authorizations": null,
+          "issuance_config": "correctissuance"
+        }
+      ]],
+      "policy_type": "whitelist"
     }
   ]
 ]
 
-summary := helpers.get_summary(
-  vars.resource_type,
-  attribute_path,
-  compliant_values,
-  vars.friendly_resource_name
-)
+message := helpers.get_multi_summary(conditions, vars.variables).message

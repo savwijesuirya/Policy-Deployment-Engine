@@ -1,7 +1,21 @@
-package terraform.gcp.security.certificate_manager.trust_config.location # Edit here 
+package terraform.gcp.security.certificate_manager.trust_config.location
+
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.certificate_manager.trust_config.vars
 
-attribute_path := "location" 
-compliant_values := ["AU"]
-summary := helpers.get_summary(vars.resource_type, attribute_path, compliant_values, vars.friendly_resource_name)
+conditions := [
+  [
+    {
+      "situation_description": "Resource location must be AU",
+      "remedies": ["Change the location to 'AU'"]
+    },
+    {
+      "condition": "Test if location is AU",
+      "attribute_path": ["location"],
+      "values": ["AU"],
+      "policy_type": "whitelist"
+    }
+  ]
+]
+
+message := helpers.get_multi_summary(conditions, vars.variables).message
