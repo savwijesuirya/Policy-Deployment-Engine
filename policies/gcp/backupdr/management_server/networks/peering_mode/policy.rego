@@ -1,4 +1,4 @@
-package terraform.gcp.security.backupdr.management_server.peering_mode  # Edit here
+package terraform.gcp.security.backupdr.management_server.peering_mode 
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.backupdr.management_server.vars
 
