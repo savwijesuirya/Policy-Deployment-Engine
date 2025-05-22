@@ -1,29 +1,27 @@
-package terraform.gcp.security.backupdr.backup_plan_association.backup_plan  # Edit here
+package terraform.gcp.security.backupdr.backup_plan_association.backup_plan
+
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.backupdr.backup_plan_association.vars
 
-# STEP 1: STUDY YOUR RESOURCE AND ITS ATTRIBUTES, THEN FILL IN THE VARS FILE
-
-# STEP 2: CREATE SCENARIOS
+# Policy Conditions
 conditions := [
   [
     {
-      "situation_description": "Backup Plan must be a known valid plan ID",
+      "situation_description": "The `backup_plan` must not be empty and must be an approved plan ID.",
       "remedies": [
-        "Set `backup_plan` to one of the approved plan IDs"
+        "Provide a non-empty `backup_plan`",
+        "Set `backup_plan` to a value from the approved list (e.g., `valid-backup-plan`)."
       ]
     },
     {
-      "condition": "c1: backup_plan not in approved list",
+      "condition": "c1: `backup_plan` not in approved list or empty",
       "attribute_path": ["backup_plan"],
-      "values":         ["valid-backup-plan"],
-      "policy_type":    "whitelist"
+      "values": ["valid-backup-plan"],
+      "policy_type": "whitelist"
     }
   ]
 ]
 
-# Displays a general message about policy compliance
+# Policy Output
 message := helpers.get_multi_summary(conditions, vars.variables).message
-
-# Displays detailed compliance info for each resource
 details := helpers.get_multi_summary(conditions, vars.variables).details
