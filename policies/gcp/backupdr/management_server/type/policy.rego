@@ -1,10 +1,7 @@
-package terraform.gcp.security.backupdr.management_server.type  # Edit here
+package terraform.gcp.security.backupdr.management_server.type 
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.backupdr.management_server.vars
 
-# STEP 1: STUDY YOUR RESOURCE AND ITS ATTRIBUTES, THEN FILL IN THE VARS FILE
-
-# STEP 2: CREATE SCENARIOS
 conditions := [
   [
     {
