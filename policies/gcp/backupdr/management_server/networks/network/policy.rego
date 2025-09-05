@@ -23,11 +23,8 @@ conditions := [
   ]
 ]
 
-policy_vars := {
-  "friendly_resource_name": vars.variables.friendly_resource_name,
-  "resource_type":          vars.variables.resource_type,
-  "resource_value_name":    "name" 
-}
+message := helpers.get_multi_summary(conditions, vars.variables).message
+details := helpers.get_multi_summary(conditions, vars.variables).details
 
-message := helpers.get_multi_summary(conditions, policy_vars).message
-details := helpers.get_multi_summary(conditions, policy_vars).details
+
+

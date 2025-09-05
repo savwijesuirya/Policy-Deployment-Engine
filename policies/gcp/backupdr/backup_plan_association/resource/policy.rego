@@ -3,13 +3,6 @@ package terraform.gcp.security.backupdr.backup_plan_association.resource
 import data.terraform.gcp.helpers
 import data.terraform.gcp.security.backupdr.backup_plan_association.vars
 
-# Override so violations are reported against the resource field itself
-vars_override := {
-    "friendly_resource_name": vars.variables.friendly_resource_name,
-    "resource_type":          vars.variables.resource_type,
-    "resource_value_name":    "resource",
-}
-
 conditions := [
   [
     {
@@ -28,5 +21,5 @@ conditions := [
   ]
 ]
 
-message := helpers.get_multi_summary(conditions, vars_override).message
-details := helpers.get_multi_summary(conditions, vars_override).details
+message := helpers.get_multi_summary(conditions, vars.variables).message
+details := helpers.get_multi_summary(conditions, vars.variables).details

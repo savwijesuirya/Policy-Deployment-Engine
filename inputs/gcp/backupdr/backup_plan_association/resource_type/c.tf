@@ -7,4 +7,5 @@ resource "google_backup_dr_backup_plan_association" "c" {
   backup_plan_association_id = "valid-bpa-type"
   resource                   = "projects/policy-deployment-backups/zones/australia-southeast1-a/instances/instance-1"
   backup_plan                = "valid-backup-plan"
+  project                    = "policy-deployment-backups"
 }

@@ -1,6 +1,0 @@
-# Describe your resource type here
-# Keep "c" as the name to indicate that this resource and its attributes are compliant
-resource "google_certificate_manager_certificate_map" "c" {
-    name = "certificate_maptestcompliant"
-    project = "correctprojectlocation"
-}
