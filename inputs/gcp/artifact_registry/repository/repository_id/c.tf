@@ -1,7 +1,7 @@
 
 
 resource "google_artifact_registry_repository" "c" {
-  repository_id = "papprepo"
+  repository_id = "papprepocompliant"
   format        = "DOCKER"
   location      = "AU"
 
