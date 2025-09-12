@@ -4,6 +4,6 @@
 resource "google_backup_dr_management_server" "c" {
   project  = "policy-deployment-backups"
   location = "australia-southeast1"
-  name     = "ms-console"
+  name     = "ms-console-c"
   type     = "BACKUP_RESTORE"
 }

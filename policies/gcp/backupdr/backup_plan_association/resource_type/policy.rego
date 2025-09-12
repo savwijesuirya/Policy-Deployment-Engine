@@ -16,7 +16,7 @@ conditions := [
       "condition":      "resource_type not in approved list",
       # Look directly at the resource_type field
       "attribute_path": ["resource_type"],
-      "values":         ["compute.googleapis.com/Instance"],
+      "values":         ["compute.googleapis.com/valid"],
       "policy_type":    "whitelist"
     }
   ]

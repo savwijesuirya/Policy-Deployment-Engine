@@ -6,6 +6,6 @@ resource "google_backup_dr_management_server" "nc" {
   location = "europe-west1"
 
   # Required arguments you’ll already have in your real config:
-  name = "ms-console"
+  name = "ms-console-nc"
   type = "BACKUP_RESTORE"
 }

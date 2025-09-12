@@ -15,7 +15,7 @@ conditions := [
       "condition":      "resource not in approved list",
       # look directly at resource.values.resource
       "attribute_path": ["resource"],
-      "values":         ["projects/policy-deployment-backups/zones/australia-southeast1-a/instances/instance-1"],
+      "values":         ["projects/policy-deployment-backups/zones/australia-southeast1-a/instances/valid"],
       "policy_type":    "whitelist"
     }
   ]
