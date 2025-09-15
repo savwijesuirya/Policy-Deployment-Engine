@@ -6,7 +6,7 @@ This value may not be changed after the Repository has been created.*/
 # Keep "nc" as the name to indicate that this resource and its attributes are non-compliant
 
 resource "google_artifact_registry_repository" "nc" {
-  repository_id = "test-repo-nc"
+  repository_id = "nc"
   format        = "DOCKER"
   location      = "AU"
   

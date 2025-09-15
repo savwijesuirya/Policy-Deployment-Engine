@@ -2,7 +2,7 @@
 #(e.g., within Australia for data sovereignty or compliance reasons)
 
 resource "google_artifact_registry_repository" "c" {
-  repository_id = "region-repo-c"
+  repository_id = "c"
   format        = "DOCKER"
   location      = "AU"
  project = "artifact_registry_testing"

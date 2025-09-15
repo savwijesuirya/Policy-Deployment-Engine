@@ -1,6 +1,6 @@
 
 resource "google_artifact_registry_repository" "nc" {
-  repository_id = "region-repo-nc"
+  repository_id = "nc"
   format        = "DOCKER"
   location      = "us"  # Example of a disallowed region
 

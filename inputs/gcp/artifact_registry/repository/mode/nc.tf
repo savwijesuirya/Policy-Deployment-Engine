@@ -2,7 +2,7 @@
 #This allows fetching artifacts from external sources like Docker Hub.
 
 resource "google_artifact_registry_repository" "nc" {
-  repository_id = "risky-repo-nc"
+  repository_id = "nc"
   format        = "DOCKER"
   location      = "AU"
   mode          = "REMOTE_REPOSITORY"
