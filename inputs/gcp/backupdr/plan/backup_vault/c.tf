@@ -3,7 +3,7 @@
 
 resource "google_backup_dr_backup_plan" "c" {
   # Required identifiers
-  backup_plan_id = "vault-test-plan"
+  backup_plan_id = "c"
   resource_type  = "GCE_VM"
   location       = "australia-southeast1"
   project        = "policy-deployment-backups"

@@ -3,7 +3,7 @@
 
 resource "google_backup_dr_backup_vault" "nc" {
   location        = "australia-southeast1"
-  backup_vault_id = "backup-vault-nc"
+  backup_vault_id = "nc"
 
   access_restriction = "UNRESTRICTED"
 

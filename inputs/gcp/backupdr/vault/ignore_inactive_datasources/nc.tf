@@ -3,7 +3,7 @@
 
 resource "google_backup_dr_backup_vault" "nc" {
   provider                                = google
-  backup_vault_id                         = "backup‑vault‑nc"
+  backup_vault_id                         = "nc"
   location                                = "australia-southeast1"
   backup_minimum_enforced_retention_duration = "86400s"
   ignore_inactive_datasources             = false

@@ -1,32 +1,24 @@
-package terraform.gcp.security.backupdr.vault.ignore_inactive_datasources
-
+package terraform.gcp.security.backupdr.backup_vault.ignore_inactive_datasources
 import data.terraform.gcp.helpers
-import data.terraform.gcp.security.backupdr.vault.vars
-
-# Override so violations report by backup_vault_id
-vars_override := {
-    "friendly_resource_name": vars.variables.friendly_resource_name,
-    "resource_type":         vars.variables.resource_type,
-    "resource_value_name":   "backup_vault_id",
-}
+import data.terraform.gcp.security.backupdr.backup_vault.vars
 
 conditions := [
   [
     {
-      "situation_description": "Backup Vault must ignore inactive datasources",
+      "situation_description": "Use unapproved ignore_inactive_datasources",
       "remedies": [
-        "Set `ignore_inactive_datasources` to `true`"
+        "Set `ignore_inactive_datasources` to true "
       ]
     },
     {
-      "condition":      "ignore_inactive_datasources not true",
-      # point directly at the field under values
-      "attribute_path": ["ignore_inactive_datasources"],
-      "values":         [true],
+      "condition":      "ignore_inactive_datasources not in approved list ",
+      "attribute_path": "ignore_inactive_datasources",
+      "values":         ["true"],
       "policy_type":    "whitelist"
     }
   ]
 ]
 
-message := helpers.get_multi_summary(conditions, vars_override).message
-details := helpers.get_multi_summary(conditions, vars_override).details
+# final outputs
+message := helpers.get_multi_summary(conditions, vars.variables).message
+details := helpers.get_multi_summary(conditions, vars.variables).details

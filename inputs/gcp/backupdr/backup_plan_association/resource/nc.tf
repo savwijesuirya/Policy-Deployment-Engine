@@ -4,7 +4,7 @@
 resource "google_backup_dr_backup_plan_association" "nc" {
   location                    = "australia-southeast1"
   resource_type               = "compute.googleapis.com/Instance"
-  backup_plan_association_id = "invalid-bpa-resource"
+  backup_plan_association_id = "nc"
   resource                   = "invalid-format-resource-name"  # Improper resource format
   backup_plan                = "invalid-backup-plan"
 }

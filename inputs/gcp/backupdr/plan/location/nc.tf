@@ -2,7 +2,7 @@
 # Keep "nc" as the name to indicate that this resource and its attributes are non-compliant
 
 resource "google_backup_dr_backup_plan" "nc" {
-  backup_plan_id = "location-test-plan"
+  backup_plan_id = "nc"
   resource_type  = "GCE_VM"
   location       = "us-west1"   # disallowed region
   project        = "policy-deployment-backups"

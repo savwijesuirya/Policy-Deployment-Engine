@@ -1,32 +1,24 @@
-package terraform.gcp.security.backupdr.vault.backup_vault_id
-
+package terraform.gcp.security.backupdr.backup_vault.backup_vault_id
 import data.terraform.gcp.helpers
-import data.terraform.gcp.security.backupdr.vault.vars
-
-# Override so that violations report the actual backup_vault_id value
-vars_override := {
-    "friendly_resource_name": vars.variables.friendly_resource_name,
-    "resource_type":         vars.variables.resource_type,
-    "resource_value_name":   "backup_vault_id",
-}
+import data.terraform.gcp.security.backupdr.backup_vault.vars
 
 conditions := [
   [
     {
-      "situation_description": "Backup Vault ID must be `backup-vault-c`",
+      "situation_description": "Use unapproved back up vault id",
       "remedies": [
-        "Set `backup_vault_id` to `backup-vault-c`"
+        "Set `back up vault id ` to c "
       ]
     },
     {
-      "condition":      "backup_vault_id not in approved list",
-      "attribute_path": ["backup_vault_id"],
-      "values":         ["backup-vault-c"],
+      "condition":      "back up vault id not in approved list ",
+      "attribute_path": "backup_vault_id",
+      "values":         ["c"],
       "policy_type":    "whitelist"
     }
   ]
 ]
 
-# Use our override so that the helper reports by the backup_vault_id value
-message := helpers.get_multi_summary(conditions, vars_override).message
-details := helpers.get_multi_summary(conditions, vars_override).details
+# final outputs
+message := helpers.get_multi_summary(conditions, vars.variables).message
+details := helpers.get_multi_summary(conditions, vars.variables).details

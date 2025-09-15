@@ -11,14 +11,14 @@ conditions := [
     {
       "situation_description": "The `backup_plan_association_id` must be a valid, pre-approved identifier.",
       "remedies": [
-        "Use one of the approved values such as `valid-bpa`",
+        "Use one of the approved values such as `c`",
         "Avoid using special characters or untracked identifiers"
       ]
     },
     {
       "condition":      "`backup_plan_association_id` is not in the approved list",
       "attribute_path": ["backup_plan_association_id"],
-      "values":         ["valid-bpa"],  # Add more approved IDs as needed
+      "values":         ["c"],  # Add more approved IDs as needed
       "policy_type":    "whitelist"
     }
   ]

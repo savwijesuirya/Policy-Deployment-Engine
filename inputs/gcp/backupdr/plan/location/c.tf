@@ -2,7 +2,7 @@
 # Keep "c" as the name to indicate that this resource and its attributes are compliant
 
 resource "google_backup_dr_backup_plan" "c" {
-  backup_plan_id = "location-test-plan"
+  backup_plan_id = "c"
   resource_type  = "GCE_VM"
   location       = "australia-southeast1"
   project        = "policy-deployment-backups"

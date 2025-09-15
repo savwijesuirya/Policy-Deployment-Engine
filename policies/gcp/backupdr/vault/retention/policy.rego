@@ -1,32 +1,24 @@
-package terraform.gcp.security.backupdr.vault.retention
-
+package terraform.gcp.security.backupdr.backup_vault.retention
 import data.terraform.gcp.helpers
-import data.terraform.gcp.security.backupdr.vault.vars
-
-# Override so violations report the retention value itself
-vars_override := {
-    "friendly_resource_name": vars.variables.friendly_resource_name,
-    "resource_type":         vars.variables.resource_type,
-    "resource_value_name":   "backup_minimum_enforced_retention_duration",
-}
+import data.terraform.gcp.security.backupdr.backup_vault.vars
 
 conditions := [
   [
     {
-      "situation_description": "Backup Vault minimum enforced retention duration must be 86400s",
+      "situation_description": "Use unapproved retention time ",
       "remedies": [
-        "Set `backup_minimum_enforced_retention_duration` to `86400s`"
+        "Set `retention` to 86400s"
       ]
     },
     {
-      "condition":      "Incorrect retention duration",
-      # look directly at resource.values.backup_minimum_enforced_retention_duration
-      "attribute_path": ["backup_minimum_enforced_retention_duration"],
+      "condition":      "retention time is not in approved list ",
+      "attribute_path": "retention",
       "values":         ["86400s"],
       "policy_type":    "whitelist"
     }
   ]
 ]
 
-message := helpers.get_multi_summary(conditions, vars_override).message
-details := helpers.get_multi_summary(conditions, vars_override).details
+# final outputs
+message := helpers.get_multi_summary(conditions, vars.variables).message
+details := helpers.get_multi_summary(conditions, vars.variables).details
