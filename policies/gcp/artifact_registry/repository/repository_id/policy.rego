@@ -13,7 +13,7 @@ conditions := [[
     {
         "condition": "Disallow repository IDs not approved by the organisation",
         "attribute_path": ["repository_id"],
-        "values": ["papprepo"],
+        "values": ["c"],
         "policy_type": "whitelist"
     }
 ]
